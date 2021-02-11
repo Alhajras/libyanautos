@@ -1,0 +1,167 @@
+<form method="GET" class="post-form">
+    <div class="loginDiv mt-6">
+{#        <div class="tabs">#}
+{#            <ul id="tabs">#}
+{#              <div class="columns">#}
+{#  <div class="column is-one-third">#}
+{#                <li id="car-icon" class="is-active">#}
+{#                    <a>#}
+{#                    <span class="icon has-text-info">#}
+{#                        <i class="fas fa-car-side fas fa-2x 2em"></i>#}
+{#                    </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#  </div>#}
+{#  <div class="column is-one-third">#}
+{#                <li id="motorcycle-icon">#}
+{#                    <a>#}
+{#                    <span class="icon has-text-info">#}
+{#                        <i class="fas fa-motorcycle fas fa-2x 2em"></i>#}
+{#                    </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#  </div>#}
+{#  <div class="column is-one-third">#}
+{#                <li id="truck-icon">#}
+{#                    <a>#}
+{#                    <span class="icon has-text-info">#}
+{#                        <i class="fas fa-truck fas fa-2x 2em"></i>#}
+{#                    </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#  </div>#}
+{#</div>#}
+{#            </ul>#}
+{#        </div>#}
+
+        <div class="is-flex columns is-centered field has-addons">
+            <div class="control">
+                <input name='query' value='{{ request.GET.query }}' id='query' class="input" type="text"
+                       placeholder="Find vehicle">
+            </div>
+            <div class="control">
+                <input class="button is-info is-fullwidth" type="submit" id="submit_search" value="Search">
+            </div>
+        </div>
+        <div class="mt-4 is-flex columns is-centered field has-addons">
+            <div class="control">
+              <input onclick="showModal()" class="button is-info is-fullwidth" id="submit_task" value="Filter result">
+            </div>
+{#            <div class="control">#}
+{#                <input class="button is-info is-fullwidth" type="submit" id="submit_search" value="Search">#}
+{#            </div>#}
+        </div>
+
+        <div class='is-flex columns is-centered'>
+            <div class='column has-text-left'>
+{#              <input onclick="showModal()" class="button is-info is-fullwidth" id="submit_task" value="Filter result">#}
+
+              {#                <input class="button is-info is-fullwidth" type="submit" id="submit_task" value="Filter">#}
+            </div>
+        </div>
+    </div>
+
+  <div class="columns is-multiline is-mobile">
+    <div class="column has-text-centered">
+      {% if page_obj %}
+        <div>
+    <span class="step-links has-text-centered">
+        {% if page_obj.has_previous %}
+          <a href="?page=1">&laquo; first</a>
+          <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+      <span class="has-text-white current has-text-centered">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+    </span>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+
+<div class="modal">
+  <div id = "myModal" class="modal-background"></div>
+  <div class="modal-card">
+    <header style="background: #041221" class="modal-card-head">
+      <p class="modal-card-title has-text-white">Filter result</p>
+      <button class="modal-close delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+              <div class="columns">
+            <div class='is-flex column is-6'>
+                <div class='box f2-form-column'>
+                    {% block version %}
+                      <div id='sort_field_id' class="field">
+                        {% select form.sort %}
+                      </div>
+                        <div id='version_field_id' class="field">
+                            {% select form.brand %}
+                        </div>
+                    {% endblock %}
+                    <div class='field'>
+                        {% select form.location %}
+                    </div>
+                    <div class="field">
+                        {% select form.fuel %}
+                    </div>
+                </div>
+            </div>
+            <div class=" is-flex column is-6">
+                <div class="box f2-form-column">
+                    <div class="field">
+                        {% select form.type %}
+                    </div>
+                    <div class="field">
+                        {% field form.price %}
+                    </div>
+                    <div class="field">
+                        {% field form.distance %}
+                    </div>
+                    <div class="field">
+                        {% field form.production_year %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer style="background: #041221" class="modal-card-foot">
+      <button type="submit" id="submit_task" class="button is-info">Filter</button>
+      <button class="close button">Cancel</button>
+    </footer>
+  </div>
+</div>
+    {#    {% pagination_nav %}#}
+    {#    <nav style="margin-top: 5px; margin-bottom: 10px;" class="pagination is-centered" role="navigation"#}
+    {#         aria-label="pagination">#}
+    {#        <a class="pagination-previous">Previous</a>#}
+    {#        <a class="pagination-next">Next page</a>#}
+    {#        <ul class="pagination-list">#}
+    {#            <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>#}
+    {#            <li><span class="pagination-ellipsis">&hellip;</span></li>#}
+    {#            <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>#}
+    {#            <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>#}
+    {#            <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>#}
+    {#            <li><span class="pagination-ellipsis">&hellip;</span></li>#}
+    {#            <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>#}
+    {#        </ul>#}
+    {#    </nav>#}
+</form>
+
+
+
+<script>
+  function showModal() {
+    $(".modal").addClass("is-active")
+  }
+
+  $(".close").click(function () {
+    $(".modal").removeClass("is-active")
+  })
+</script>

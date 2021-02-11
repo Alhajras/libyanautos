@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load static %}
+  <title>Slider</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href='{% static  "style.css" %}'>
+  <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/7dc3015a44.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <link rel="stylesheet" href='{% static "cars_list.css" %}'>
+  <script src='{% static "header.js" %}'></script>
+  <link rel="icon" type="image/png" href='{% static "autos.PNG" %}'/>
+  <script type="text/javascript"
+          src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d669e21f91b598c"></script>
+
+</head>
+<body>
+{% header_template %}
+
+<div id="content-wrapper">
+
+  <div style="margin-left: 3em;" class="column">
+    <img id=featured src='{% static primary_image %}'>
+
+    <div id="slide-wrapper">
+      <img id="slideLeft" class="arrow" src='{% static "slider/arrow-left.png" %}'>
+
+      <div id="slider">
+        {% for image in images %}
+          <img class="thumbnail" style="min-width: 100px" src='{% static image %}'>
+        {% endfor %}
+
+      </div>
+
+      <img id="slideRight" class="arrow" src='{% static "slider/arrow-right.png" %}'>
+    </div>
+  </div>
+
+  <div class="column has-text-white">
+    <h1 class="has-text-white title">{{ vehicle.title }}</h1>
+    <hr>
+    <h3>${{ vehicle.price }}</h3>
+
+    <p>{{ vehicle.description }}</p>
+    <p>{{ vehicle.location }}</p>
+    <p>{{ vehicle.fuel }}</p>
+    <p>
+    <div class="is-flex">
+      <div class="media-left">
+        <figure class="image is-24x24">
+          <img src='{% static "brands/" %}{{ vehicle.brand |upper }}.jpg' alt="Image">
+        </figure>
+      </div>
+      <div class="media-content">
+        {{ vehicle.brand }} |
+        {{ vehicle.production_year }}
+      </div>
+
+    </div>
+    </p>
+    <p>{{ vehicle.created_at }}</p>
+    <hr>
+    <h5 class="title has-text-white has-text-left">Contact us:</h5>
+
+    <p>{{ profile.store_name }}</p>
+    <p>{{ profile.phone_number }}</p>
+    <p>{{ profile.address }}</p>
+    <hr>
+    <h5 class="title has-text-white has-text-left">Follow us:</h5>
+    <div class="container">
+      <div class="content has-text-centered">
+        <div class="soc">
+          {% for icon, link  in social_media_links.items %}
+            {% if link %}
+              <a href="{{ link }}"><i class="fa fa-{{ icon }} fa-lg" aria-hidden="true"></i></a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {#        <input value=1 type="number">#}
+    {#        <a class="btn btn-dark" href="#">Add to Cart</a>#}
+  </div>
+
+</div>
+{% footer_template %}
+
+<script type="text/javascript">
+  let thumbnails = document.getElementsByClassName('thumbnail')
+
+  let activeImages = document.getElementsByClassName('active')
+
+  for (var i = 0; i < thumbnails.length; i++) {
+
+    thumbnails[i].addEventListener('mouseover', function () {
+      console.log(activeImages)
+
+      if (activeImages.length > 0) {
+        activeImages[0].classList.remove('active')
+      }
+
+
+      this.classList.add('active')
+      document.getElementById('featured').src = this.src
+    })
+  }
+
+
+  let buttonRight = document.getElementById('slideRight')
+  let buttonLeft = document.getElementById('slideLeft')
+
+  buttonLeft.addEventListener('click', function () {
+    document.getElementById('slider').scrollLeft -= 180
+  })
+
+  buttonRight.addEventListener('click', function () {
+    document.getElementById('slider').scrollLeft += 180
+  })
+
+
+</script>
+
+</body>
+</html>

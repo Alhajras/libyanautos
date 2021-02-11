@@ -1,0 +1,11 @@
+<label class="label has-text-white" for="{{ field.id_for_label }}">
+  {{ field.label }}:
+</label>
+{% if required %}
+  <span class='is-italic f2-required'> (required)</span>
+{% endif %}
+<div class="control">
+  <div class="select">{{ field }}</div>
+</div>
+{#{% include "base/snippets/errors.html" with errors=field.errors %}#}
+{% if field.help_text %}<p class="help">{{ field.help_text }}</p>{% endif %}

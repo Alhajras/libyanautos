@@ -1,0 +1,37 @@
+{% load static %}
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-brand">
+      <a href="/">
+        <img style="
+    height: 5em;
+    width: 8em;
+" src='{% static "autos.PNG" %}' alt="Logo">
+      </a>
+      <a id="navbar-burger"
+         role="button"
+         class="navbar-burger"
+         data-target="navMenu"
+         aria-label="menu"
+         aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+      </span>
+    </div>
+    <div id="navbarMenu" class="navbar-menu" style="background-color: #041221">
+      <div style="color: #3273dc" class="navbar-end">
+        <a href="/" class="navbar-item ">
+          Home
+        </a>
+        <a href="/admin" class="navbar-item">
+          Admin
+        </a>
+        <a href="/contact-us" class="navbar-item">
+          Contact us
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
