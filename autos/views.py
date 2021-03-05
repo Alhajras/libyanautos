@@ -20,7 +20,7 @@ def home(request: HttpRequest) -> HttpResponse:
     try:
         query = request.GET["query"]
         if query != "":
-            kwargs["name__contains"] = query
+            kwargs["title__contains"] = query
 
         price = request.GET["price"]
         if int(price) != 0:
